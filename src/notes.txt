@@ -1,0 +1,31 @@
+###############################
+some notes for the class Practical Machine Learning
+###############################
+1. definition of sensitivity, specificity, positive predictive value,etc.
+           Ground Truth
+            +    -  
+     +      TP   FP
+test 
+     -      FN   TN
+
+sensitvity=Pr(positive test|disease)=TP/(TP+FN)
+specificity=Pr(neative test|no disease)=TN/(FP+TN)
+positive predictive value=Pr(disease|positive test)=TP/(TP+FP)
+negative predictive value=Pr(no disease|negative test)=TN/(FN+TN)
+accuracy=Pr(correct outcome)=(TP+TN)/(TP+FP+TN+FN)
+
+
+2. rules of thumb of study design
+   for large data size: 60% training, 20% testing, 20% validation
+   for medium data size: 60% training, 40% testing
+   for small data size: cross validation
+
+   cross valiadation
+   -random subsampling without replacement
+   -random subsampling with replacement=bootstrapping
+   -K-fold: divide into K equal nonoverlapping subsets and use one as testing the 
+            others as training. 
+            large K=less bias, more variance
+            small K=more bias, less variance
+
+
