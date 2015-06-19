@@ -28,4 +28,41 @@ accuracy=Pr(correct outcome)=(TP+TN)/(TP+FP+TN+FN)
             large K=less bias, more variance
             small K=more bias, less variance
 
+3. R code
+##############################################
+divide the data sets into training and testing
+##############################################
+library(caret)
+library(kernlab)
+data(spam)
+inTrain = createDataPartition(y=spam$type, p=0.75, list=FALSE)
+training = spam[inTrain,]
+testing = spam[-inTrain,]
+
+
+
+
+#############################################
+For quiz 2
+#############################################
+library(caret)
+library(AppliedPredictiveModeling)
+set.seed(3433)
+data(AlzheimerDisease)
+adData = data.frame(diagnosis,predictors)
+inTrain = createDataPartition(adData$diagnosis, p = 3/4)[[1]]
+training = adData[ inTrain,]
+testing = adData[-inTrain,]
+tempTrain=training[,grepl("^IL",names(training))|grepl("diagnosis",names(training))]
+tempTest=testing[,grepl("^IL",names(testing))|grepl("diagnosis",names(testing))]
+preProc=preProcess(tempTrain[,-1],method="pca",thresh=0.80)
+trainPC=predict(preProc,tempTrain[,-1])
+testPC=predict(preProc,tempTest[,-1])
+modelFit=train(tempTrain$diagnosis ~.,method="glm",data=trainPC)
+modelFit_noPCA=train(tempTrain$diagnosis ~.,method="glm",data=tempTrain)
+confusionMatrix(testing$diagnosis,predict(modelFit,testPC))
+confusionMatrix(testing$diagnosis,predict(modelFit_noPCA,newdata=tempTest))
+
+
+
 
